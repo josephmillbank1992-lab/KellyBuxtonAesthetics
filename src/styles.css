@@ -280,3 +280,6 @@ h2,.heading-row h2{font-size:39px}.heading-row{align-items:start;flex-direction:
 #consultation-interests{padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0}
 #consultation-interests button{font-size:12px;border:1px solid var(--line);background:var(--light);padding:9px 12px;min-height:42px}
 @media(max-width:560px){.consultation-plan{flex-direction:column;align-items:start;padding:24px;gap:20px}.consultation-plan h3{font-size:29px}}
+
+/* Keep the portrait inside a fixed face-and-shoulders crop at every screen ratio. */
+.campaign-photo svg{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:hidden}
