@@ -18,7 +18,7 @@ npm run check
 npm run dev
 ```
 
-The initial client photo import uses the standard Library transfer helper and private build configuration. After import, the static photo assets are retained on the original Vercel deployment and subsequent builds use that immutable asset origin. For a fully offline build, place the 14 photos listed in `src/asset-manifest.json` in a root `assets/` folder.
+All 14 original client photographs are included in `assets/`. Builds are self-contained and require no network access or npm dependencies.
 
 `SITE_URL` sets canonical URLs. Update it when a custom domain is selected.
 `SKIP_ASSETS=1 npm run build` allows HTML and metadata checks without downloading photos.
