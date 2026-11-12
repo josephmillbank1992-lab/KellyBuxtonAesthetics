@@ -21,3 +21,66 @@ document.querySelectorAll('dialog').forEach(dialog=>{dialog.querySelector('[data
 document.querySelector('.privacy-open')?.addEventListener('click',e=>openDialog(document.getElementById('privacy-dialog'),e.currentTarget));
 document.getElementById('whatsapp-form')?.addEventListener('submit',e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const name=form.elements.name.value.trim();if(!name){form.elements.name.setCustomValidity('Please enter your name.');form.elements.name.reportValidity();return;}const message=form.elements.message.value.trim();const text='Hi Kelly, my name is '+name+'. I’m interested in '+form.elements.interest.value.toLowerCase()+'.'+(message?'\n\n'+message:'');const url='https://wa.me/447496080844?text='+encodeURIComponent(text);const opened=window.open(url,'_blank','noopener,noreferrer');document.getElementById('whatsapp-status').textContent='Your message is ready. Please review and send it in WhatsApp.';const status=document.getElementById('whatsapp-status');const fallback=document.createElement('a');fallback.href=url;fallback.target='_blank';fallback.rel='noopener noreferrer';fallback.textContent=' Open WhatsApp';status.appendChild(fallback);});
 document.getElementById('enquiry-name')?.addEventListener('input',e=>e.target.setCustomValidity(''));
+
+/* Accessible treatment browsing and an in-page consultation shortlist. */
+const explorerTabs=[...document.querySelectorAll('.explorer-tabs [role="tab"]')];
+function activateExplorerTab(tab){
+ explorerTabs.forEach(item=>{
+  const selected=item===tab;
+  item.setAttribute('aria-selected',String(selected));
+  item.tabIndex=selected?0:-1;
+  const panel=document.getElementById(item.getAttribute('aria-controls'));
+  if(panel)panel.hidden=!selected;
+ });
+}
+explorerTabs.forEach((tab,index)=>{
+ tab.addEventListener('click',()=>activateExplorerTab(tab));
+ tab.addEventListener('keydown',event=>{
+  let next=index;
+  if(event.key==='ArrowRight')next=(index+1)%explorerTabs.length;
+  else if(event.key==='ArrowLeft')next=(index-1+explorerTabs.length)%explorerTabs.length;
+  else if(event.key==='Home')next=0;
+  else if(event.key==='End')next=explorerTabs.length-1;
+  else return;
+  event.preventDefault();
+  activateExplorerTab(explorerTabs[next]);
+  explorerTabs[next].focus();
+ });
+});
+const consultationTopics=new Set();
+const interestButtons=[...document.querySelectorAll('[data-interest]')];
+const plan=document.getElementById('consultation-plan');
+const interestList=document.getElementById('consultation-interests');
+const interestStatus=document.getElementById('interest-status');
+function renderConsultationTopics(){
+ if(!plan||!interestList)return;
+ plan.hidden=consultationTopics.size===0;
+ interestList.replaceChildren();
+ consultationTopics.forEach(topic=>{
+  const li=document.createElement('li');
+  const remove=document.createElement('button');
+  remove.type='button';
+  remove.textContent=topic+' ×';
+  remove.setAttribute('aria-label','Remove '+topic+' from consultation interests');
+  remove.addEventListener('click',()=>{
+   consultationTopics.delete(topic);
+   renderConsultationTopics();
+   interestButtons.find(button=>button.dataset.interest===topic)?.focus();
+  });
+  li.appendChild(remove);interestList.appendChild(li);
+ });
+ interestButtons.forEach(button=>{
+  const selected=consultationTopics.has(button.dataset.interest);
+  button.setAttribute('aria-pressed',String(selected));
+  button.textContent=selected?'Added to my consultation ✓':'Add to my consultation +';
+ });
+ const message='Hi Kelly, I’d like to book a free consultation. I’m interested in discussing:\n'+[...consultationTopics].map(topic=>'• '+topic).join('\n')+'\n\nCould you help me understand my options?';
+ const whatsapp=document.getElementById('consultation-whatsapp');
+ if(whatsapp)whatsapp.href='https://wa.me/447496080844?text='+encodeURIComponent(message);
+ if(interestStatus)interestStatus.textContent=consultationTopics.size+' consultation topic'+(consultationTopics.size===1?'':'s')+' selected.';
+}
+interestButtons.forEach(button=>button.addEventListener('click',()=>{
+ const topic=button.dataset.interest;
+ if(consultationTopics.has(topic))consultationTopics.delete(topic);else consultationTopics.add(topic);
+ renderConsultationTopics();
+}));
