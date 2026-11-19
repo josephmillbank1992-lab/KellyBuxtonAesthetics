@@ -288,3 +288,7 @@ h2,.heading-row h2{font-size:39px}.heading-row{align-items:start;flex-direction:
 .studio-intro h2{text-align:center}
 .studio-intro>.clinic-introduction{font-family:var(--sans);font-size:15px;line-height:1.85;letter-spacing:normal;max-width:850px;margin:24px auto 32px;text-align:center}
 @media(max-width:560px){.studio-intro h2{font-size:34px}.studio-intro>.clinic-introduction{font-size:14px;margin:20px auto 28px}}
+
+/* Give the homepage portrait room to include more of Kelly’s shoulders. */
+@media(min-width:561px){.campaign-photo{min-height:clamp(580px,47vw,850px);max-height:none;aspect-ratio:auto}}
+@media(max-width:560px){.campaign-photo{aspect-ratio:1/.9}}
