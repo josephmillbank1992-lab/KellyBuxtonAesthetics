@@ -12,6 +12,33 @@ export const business = {
   address: '4F Station Road, Mickleover, Derby, DE3 9GH'
 };
 
+export const reviews = [
+  {
+    name: 'Laura T.',
+    source: 'Google',
+    url: business.google,
+    quote: 'I’ve got complete trust in her judgement and wouldn’t go anywhere else.'
+  },
+  {
+    name: 'Stacey M.',
+    source: 'Google',
+    url: business.google,
+    quote: 'Kelly is so knowledgeable and takes the time to answer any questions and offer reassurance.'
+  },
+  {
+    name: 'Kasiea M.',
+    source: 'That Time',
+    url: business.booking,
+    quote: 'Kelly is incredibly professional, kind and knowledgeable, taking the time to explain everything and make you feel comfortable and at ease.'
+  },
+  {
+    name: 'Penny B.',
+    source: 'That Time',
+    url: business.booking,
+    quote: 'Kelly was very knowledgeable and professional over messages and face to face. Very welcoming and calming environment.'
+  }
+];
+
 export const treatments = [
   { id:'full-face-rejuvenation', number:'01', name:'Full face rejuvenation', category:'The signature focus', image:'full-face-comparison.jpg', description:'A considered look at the whole face, with a personalised plan shaped around your features and your goals.', detail:'Rather than choosing a treatment in isolation, start with a conversation about what you would like to achieve. I consider your face as a whole and talk you through which options, if any, are suitable for you. Your plan, costs and next steps are agreed following your consultation.' },
   { id:'profile-balancing', number:'02', name:'Profile balancing & contouring', category:'Balance & definition', image:'profile-comparison.jpg', description:'A personalised approach to facial proportions, profile and definition.', detail:'Discuss the relationship between your features and the areas you would like to explore. I’m qualified in profile balancing and facial contouring, and I’ll explain the options, limitations and suitability during your consultation.' },

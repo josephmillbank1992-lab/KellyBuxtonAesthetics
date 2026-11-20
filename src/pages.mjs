@@ -1,4 +1,4 @@
-import {business as b, treatments, gallery, faqs} from './config.mjs';
+import {business as b, treatments, gallery, reviews, faqs} from './config.mjs';
 const arrow='<span aria-hidden="true">↗</span>';
 export const booking=(label='Book a free consultation', cls='button')=>`<a class="${cls}" href="${b.booking}" target="_blank" rel="noopener noreferrer">${label}${arrow}</a>`;
 const picture=(file,alt,cls='',eager=false)=>`<img class="${cls}" src="/assets/${file}" alt="${alt}" ${eager?'fetchpriority="high" loading="eager"':'loading="lazy"'} decoding="async">`;
@@ -19,6 +19,16 @@ home: {
 <section class="treatment-collection"><div class="collection-heading"><h2>Find your focus.</h2>${link('/treatments/','All treatments & prices')}</div><div class="collection-grid"><a href="/treatments/#lips" class="collection-item"><div>${picture('lips-02.jpg','Close-up lip treatment photograph from my clinic')}</div><h3>Lip treatments ${arrow}</h3></a><a href="/treatments/#profile-balancing" class="collection-item"><div>${picture('profile-detail.jpg','Paired client profile photographs from my clinic')}</div><h3>Profile & contour ${arrow}</h3></a><a href="/treatments/#rhinoplasty" class="collection-item"><div>${picture('nose-profile.jpg','Side profile photograph from my clinic')}</div><h3>Non-surgical rhinoplasty ${arrow}</h3></a></div></section>
 <section class="practitioner-story"><div class="practitioner-photo">${picture('kelly-portrait.jpg','Kelly Buxton, founder of the Mickleover clinic')}</div><div class="practitioner-copy"><h2>Hi, I’m Kelly.</h2><p>“I only carry out treatments when I’m confident they are appropriate for you.”</p><div>With nine years in the beauty industry and qualifications in advanced aesthetics, I put listening first. I’m here to give you clear advice and help you choose a plan you feel comfortable with.</div>${link('/about/','Get to know me')}</div></section>
 <section class="section home-results"><div class="heading-row"><div><h2>My work. Up close.</h2><p>Real client photographs, with room to look a little closer.</p></div>${link('/results/','View the full gallery')}</div><div class="home-gallery">${gallery.filter(({image})=>['full-face-comparison.jpg','lips-01.jpg','profile-comparison.jpg'].includes(image)).map(galleryTile).join('')}</div><p class="small-note">Results and recovery vary from person to person. Tap a photograph to view it in full.</p></section>
+<section class="section client-reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="section-heading"><h2 id="reviews-title">What my clients say.</h2></div>
+  <div class="review-grid">${reviews.map(({name,source,url,quote})=>`
+    <figure class="review-card">
+      <p class="review-stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">5 out of 5 stars</span></p>
+      <blockquote><p>“${quote}”</p></blockquote>
+      <figcaption>${name} <span aria-hidden="true">·</span> <a href="${url}">${source}</a></figcaption>
+    </figure>
+  `).join('')}</div>
+</section>
 ${journey()}
 ${faq()}`
 },
