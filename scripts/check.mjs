@@ -6,7 +6,7 @@ const assets=JSON.parse(await readFile(new URL('../src/asset-manifest.json',impo
 assert.equal(Object.keys(pages).length,5);
 assert.equal(business.booking,'https://that-time.co.uk/kelly-buxton-aesthetics');
 assert.equal(business.whatsapp,'https://wa.me/447496080844');
-assert.equal(new Set(assets).size,13);
+assert.equal(new Set(assets).size,14);
 for(const [key,page]of Object.entries(pages)){
  const html=layout(page,key,'https://kelly-buxton-aesthetics.vercel.app');
  assert.equal((html.match(/<h1[ >]/g)||[]).length,1,key+' must have one h1');
@@ -26,4 +26,4 @@ for(const [key,page]of Object.entries(pages)){
 }
 assert.ok(gallery.every(g=>assets.includes(g.image)));
 assert.ok(treatments.every(t=>!t.image||assets.includes(t.image)));
-console.log('PASS: 5 pages, navigation, treatment anchors, unique IDs, 13 photo references, booking links and structured data.');
+console.log('PASS: 5 pages, navigation, treatment anchors, unique IDs, 14 photo references, booking links and structured data.');
