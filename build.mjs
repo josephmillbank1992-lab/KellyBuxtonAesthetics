@@ -17,4 +17,4 @@ await mkdir(resolve(root,'assets'),{recursive:true});
 if(process.env.SKIP_ASSETS!=='1'){
  for(const name of manifest)await copyFile(resolve('assets',name),resolve(root,'assets',name));
 }
-console.log('Built five pages, metadata, sitemap, 404 and 14 client photographs.');
+console.log(`Built five pages, metadata, sitemap, 404 and ${manifest.length} image assets.`);
